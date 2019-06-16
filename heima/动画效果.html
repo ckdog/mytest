@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta content="width=device-width,initial-scale=1.0">
+    <title>axios demo</title>
+   
+    <!-- <script src="https://cdn.jsdelivr.net/npm/vue"></script> -->
+    <script src="./lib/vue/dist/vue.min.js">
+      
+    </script>
+
+</head>
+<style>
+  .v-enter,
+  .v-leave-to {
+      opacity:0;
+      transform:translateX(150px)
+  }
+  .v-enter-active,
+  .v-leave-active{
+      transition: all 0.5s ease;
+  }
+</style>
+<body>
+    
+    <div id="app">
+        <button @click="flag = !flag">click</button><br>
+        <transition>
+        
+            <h2 v-if="flag">this is an movie</h2>
+        </transition>
+    </div>
+    <script>
+    var vm = new Vue({
+        el:"#app",
+        data:{
+            flag:true
+        }
+    }) 
+    </script>
+    
+  </body>
+</html>

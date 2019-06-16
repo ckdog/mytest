@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta content="width=device-width,initial-scale=1.0">
+    <title>axios demo</title>
+   
+    <!-- <script src="https://cdn.jsdelivr.net/npm/vue"></script> -->
+    <script src="./lib/vue/dist/vue.min.js">
+      
+    </script>
+
+</head>
+<script>
+  
+</script>
+<body>
+    
+    <div id="app">
+        <div class="display:inline">
+            <label>ID:
+                <input type="text" v-model="iid">
+            </label>
+            <label>
+                NAME:
+                <input type="text" v-model="nname">
+            </label>
+            <label>
+                <input type="button" value="添加" @click="add">
+
+            </label>
+            <label for="">
+                search:
+                <input type="text" v-model="searchkey" v-focus v-collor="'red'">
+
+            </label>
+
+        </div>
+        <div>
+            <table border="solid">
+                <thead>
+                    <tr>表单列表</tr>
+                    <tr>
+                        <td>ID</td>
+                        <td>NAME</td>
+                        <td>TIME</td>
+                        <td>OPTION</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr v-for="(item) in search(searchkey)" :key="item.id">
+                        <td>{{item.id}}</td>
+                        <td>{{item.name}}</td>
+                        <td>{{item.createtime | dateFormat()}}</td>
+                        <td><a href="#" @click="del(item.id)">删除</a></td>
+                    </tr>
+                </tbody>
+
+            </table>
+        </div>
+        <div>{{filtertest | move3(filtertest) |biu('bang')}}</div>
+        
+    </div>
+    <script>
+        Vue.filter('move3',function(filtertest) {
+            return filtertest.replace(/3/g,'好');
+        })
+        Vue.filter('biu',function(filtertest,arg){
+            return filtertest.replace(/4/g,arg);
+        })
+        Vue.filter('dateFormat',function(dateStr){
+            createtime = new Date(dateStr);
+            console.log(createtime);
+            
+            var year = createtime.getFullYear();
+            var mon = (createtime.getMonth()+1).toString().padStart(2,0);
+            var day = createtime.getDate();    
+            console.log(year+'/'+mon+'/'+day);
+            
+            return `${year}-${mon}-${day}`;
+        })
+
+        Vue.directive('focus',{
+            bind:function(el,binding){
+
+            },
+            inserted:function(el,binding){
+                el.focus();
+            },
+            updated:function(el,binding){
+
+            }
+        })
+        Vue.directive('collor',{
+            bind:function(el,binding){
+                el.style.color=binding.value;
+            }
+        })
+        // Vue.directive('')
+        
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                iid: '',
+                nname: '',
+                searchkey: '',
+                filtertest:'234234',
+                cars: [
+                    {
+                        id: 1,
+                        name: '奔驰',
+                        createtime: new Date()
+                    },
+                    {
+                        id: 2,
+                        name: '奥迪',
+                        createtime: new Date()
+                    }
+
+                ]
+            },
+            filters:{
+
+            },
+            directives: {
+                "colors":function(el,binding){
+                    el.style.color=binding.value
+                }
+            },
+            methods: {
+                add() {
+                    var ccar = {id:this.iid,name:this.nname,createtime:new Date()}
+                    this.cars.push(ccar);
+                    this.iid=this.nname='';
+                },
+                del(id) {
+                    this.cars.some((item,i)=>{
+                        if(item.id==id){
+                            this.cars.splice(i,1);
+                            return true;
+                        }
+                    })
+                },
+                search(searchkey){
+                    var arr =[];
+                    this.cars.forEach(element => {
+                        if(element.name.includes(searchkey)){
+                            arr.push(element);
+                        }
+                    });
+                    return arr;
+                }
+            }
+        })
+    </script>
+    
+  </body>
+</html>

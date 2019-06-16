@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+<script>
+    function showInfo123(data) {
+        console.log(data)
+    }
+</script>
+
+
+<!-- <script src="http://127.0.0.1:8080/getscript?callback=showInfo123"></script> -->
+<!-- <script>
+  show()
+</script> -->
+<script>
+        function getinfos123(data){
+            console.log('77');
+            console.log(data);
+        }
+        function getdd(){
+            console.log('55ok');
+        }
+</script>
+<script src="http://localhost:8080/getscript?callback=getinfos123"></script>
+
+</body>
+
+</html>
