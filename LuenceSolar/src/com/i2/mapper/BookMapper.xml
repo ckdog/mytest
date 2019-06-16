@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ <mapper namespace="BookMapper">
+ 	<resultMap id="bookMap" type="com.i2.pojo.Book">
+ 		<id property="id" column="id"/>
+ 		<result property="name" column="name"/>
+ 		<result property="pic" column="pic"/>
+ 		<result property="price" column="price"/>
+ 		<result property="desc" column="description"/>
+ 	</resultMap>
+ 	<select id="getBookList" resultType="com.i2.pojo.Book">
+ 		select * from book
+ 	</select>
+ </mapper>
