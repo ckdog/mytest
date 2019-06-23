@@ -1,0 +1,2 @@
+0:0:0:0:0:0:0:1 - - [19/Jun/2019:21:38:02 +0800] "GET /rest/datetime HTTP/1.1" 500 62499 http-bio-8080-exec-1 5089
+0:0:0:0:0:0:0:1 - - [19/Jun/2019:21:48:09 +0800] "GET /rest/datetime HTTP/1.1" 200 21 http-bio-8080-exec-2 1591
