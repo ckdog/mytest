@@ -1,0 +1,3 @@
+# 让自定义的配置类生效  需要配置在此文件中	反斜线\是为了保证换行后仍能读取到配置属性
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+com.i2.Ch522Application

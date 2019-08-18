@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>websocket spring boot 广播式</title>
+<script th:src="@{sockjs.min.js}"></script>
+<script th:src="@{stomp.min.js}"></script>
+<script th:src="@{jquery.js}"></script>
+</head>
+<script type="text/javascript">
+
+</script>
+<body onload="disconnect()" >
+<onscript>
+	<h2>当前浏览器不支持websocket</h2>
+</onscript>
+<div>
+	<div>
+		<button id="connect" onclick="connect();">connect</button>
+		<button id="disconnect" onclick="disconnect();">disconnect</button>
+	</div>
+	<div id="conversationDiv">
+		<label>输入名字</label><input id="name" name="name" type="text"/>
+		<br>
+		<button onclick="sendName()" id="sendName">sendName</button>
+		<br>
+		<p id="response"></p>
+	</div>
+</div>
+<script type="text/javascript">
+	var stompClient = null;
+	function setConnected(connected){
+		 document.getElementById("connect").disable=connected;
+		 document.getElementById("disconnect").disable=!connected;
+		 document.getElementById("conversationDiv").style.visibility=connected?"visible":"hidden";
+		 $("#response").html();
+	}
+
+	function connect(){
+		var socket = new SockJS('/endpointsock');	//连接socketjs的节点名字endpointsockt
+		stompClient = Stomp.over(socket);			//使用stomp子协议的websocket的客户端
+		stompClient.connect({},function(frame){		//连接客户端
+			setConnected(true);
+			console.log('connected:'+frame);
+			stompClient.subscript("/topic/getresponse",function(response){	//通过subscribe订阅消息
+				showResponse(JSON.parse(response.body).responseMessage);
+			});
+		});
+	}
+	function disconnect(){
+		if(stompClient!=null){
+			stompClient.disconnect();
+		}
+		setConnected(false);
+		console.log("disconnect:");
+		
+	}
+	function sendName(){
+		var name = $("#name").val();
+		stompClient.send("/welcome",{},JSON.stringify({"name":name}));	//向welcome发送消息
+	}
+	function showResponse(message){
+		var response  =$("#response");
+		response.html(message);
+	}
+</script>
+</body>
+</html>
