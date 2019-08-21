@@ -11,4 +11,5 @@ public interface PersonInterface extends JpaRepository<Person, Long>{
 	//rel相关的属性
 	@RestResource(rel="nameStartwith",path="nameStartwith")
 	Person findByNameStartsWith(@Param("name")String name);
+	
 }

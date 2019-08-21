@@ -34,7 +34,9 @@ public class Ch522Application extends WebMvcConfigurerAdapter{
 	public static void main(String[] args) {
 		SpringApplication.run(Ch522Application.class, args);
 	}
-	
+	public void test() {
+		String string = new String();
+	}
 	
 	/**
 	 * 可以通过一下方式设置encodingfilter
